@@ -76,10 +76,10 @@ export const clinicsTable = pgTable("clinics", {
 export const usersToClinicsTable = pgTable("users_to_clinics", {
   userId: text("user_id")
     .notNull()
-    .references(() => usersTable.id),
+    .references(() => usersTable.id, { onDelete: "cascade" }),
   clinicId: uuid("clinic_id")
     .notNull()
-    .references(() => clinicsTable.id),
+    .references(() => clinicsTable.id, { onDelete: "cascade" }),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")
     .defaultNow()
@@ -97,7 +97,7 @@ export const usersToClinicsTableRelations = relations(
       fields: [usersToClinicsTable.clinicId],
       references: [clinicsTable.id],
     }),
-  }),
+  })
 );
 
 export const clinicsTableRelations = relations(clinicsTable, ({ many }) => ({
@@ -135,7 +135,7 @@ export const doctorsTableRelations = relations(
       references: [clinicsTable.id],
     }),
     appointments: many(appointmentsTable),
-  }),
+  })
 );
 
 export const patientSexEnum = pgEnum("patient_sex", ["male", "female"]);
@@ -163,7 +163,7 @@ export const patientsTableRelations = relations(
       references: [clinicsTable.id],
     }),
     appointments: many(appointmentsTable),
-  }),
+  })
 );
 
 export const appointmentsTable = pgTable("appointments", {
@@ -199,5 +199,5 @@ export const appointmentsTableRelations = relations(
       fields: [appointmentsTable.doctorId],
       references: [doctorsTable.id],
     }),
-  }),
+  })
 );
