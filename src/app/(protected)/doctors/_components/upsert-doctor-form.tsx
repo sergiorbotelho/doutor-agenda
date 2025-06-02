@@ -64,7 +64,7 @@ const formSchema = z
       message:
         "O horário de início não pode ser anterior ao horário de término.",
       path: ["availableToTime"],
-    }
+    },
   );
 
 interface UpsertDoctorFormProps {
