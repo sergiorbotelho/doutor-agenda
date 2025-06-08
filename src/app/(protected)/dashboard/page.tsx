@@ -20,7 +20,7 @@ import { auth } from "@/lib/auth";
 import { appointmentsTableColumns } from "../appointments/_components/table-columns";
 import AppointmentsChart from "./_components/appointments-chart";
 import { DatePicker } from "./_components/date-picker";
-import StatsCards from "./_components/stats-card";
+import StatsCards from "./_components/stats-cards";
 import TopDoctors from "./_components/top-doctors";
 import TopSpecialties from "./_components/top-specialties";
 
@@ -41,9 +41,9 @@ const DashboardPage = async ({ searchParams }: DashboardPageProps) => {
   if (!session.user.clinic) {
     redirect("/clinic-form");
   }
-  // if (!session.user.plan) {
-  //   redirect("/new-subscription");
-  // }
+  if (!session.user.plan) {
+    redirect("/new-subscription");
+  }
   const { from, to } = await searchParams;
   if (!from || !to) {
     redirect(
